@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bey163hh0e0sk"]
 
 [ext_resource type="Texture2D" uid="uid://diafq41b85o2i" path="res://Assets/Sprites/Temp/grass.png" id="1_rju1p"]
-[ext_resource type="PackedScene" uid="uid://b6jm2lqhud5y1" path="res://Scenes/Player.tscn" id="2_5ft71"]
+[ext_resource type="PackedScene" uid="uid://btegbv6g6si0p" path="res://Scenes/Player.tscn" id="2_5ft71"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -9,3 +9,4 @@
 texture = ExtResource("1_rju1p")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_5ft71")]
+position = Vector2(-9, -57)

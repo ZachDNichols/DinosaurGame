@@ -1,7 +1,16 @@
 extends CharacterBody2D
 
+class_name Player
+
+enum Direction{
+	Up,
+	Left,
+	Right,
+	Down,
+}
 
 const SPEED = 100.0
+var direction = Direction.Down
 
 func _physics_process(delta):
 	movePlayer()
@@ -22,4 +31,17 @@ func movePlayer():
 
 	velocity = velocity.normalized() * SPEED
 	
+	setDirection(velocity)
+	print(Direction.keys()[direction])
+	
 	move_and_slide()
+
+func setDirection(velocity):
+	if velocity.y > 0 and velocity.x == 0:
+		direction = Direction.Down
+	elif velocity.y < 0 and velocity.x == 0:
+		direction = Direction.Up
+	elif velocity.y == 0 and velocity.x > 0:
+		direction = Direction.Right
+	elif velocity.y == 0 and velocity.x < 0:
+		direction = Direction.Left
