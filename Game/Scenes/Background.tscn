@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d35iu2juhe7bf"]
+
+[ext_resource type="Texture2D" uid="uid://diafq41b85o2i" path="res://Assets/Sprites/Temp/grass.png" id="1_vf2hp"]
+[ext_resource type="PackedScene" uid="uid://btegbv6g6si0p" path="res://Scenes/Player.tscn" id="2_j5nrb"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_vf2hp")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_j5nrb")]
+position = Vector2(16, -15)
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
