@@ -1,9 +1,11 @@
 using Godot;
 using System;
+using RecordBound.Scripts;
 
 public partial class Player : CharacterBody2D
 {
 	public const float Speed = 300.0f;
+	public Direction Direction { get; private set; } = Direction.Up;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -27,5 +29,30 @@ public partial class Player : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+		if (direction == Vector2.Up)
+		{
+			Direction = Direction.Up;
+		}
+		else if (direction == Vector2.Down)
+		{
+			Direction = Direction.Down;
+		}
+		else if (direction == Vector2.Right)
+		{
+			Direction = Direction.Right;
+		}
+		else if (direction == Vector2.Left)
+		{
+			Direction = Direction.Left;
+		}
+			
+	}
+	
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("interact"))
+		{
+			GD.Print(Direction.ToString());
+		}
 	}
 }

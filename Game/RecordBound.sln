@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game.csproj", "{EE8A68CB-5939-4F98-8B3B-72F255460BFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordBound", "RecordBound.csproj", "{EE8A68CB-5939-4F98-8B3B-72F255460BFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
