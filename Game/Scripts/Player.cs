@@ -1,11 +1,15 @@
 using Godot;
-using System;
-using RecordBound.Scripts;
+
+namespace RecordBound.Scripts;
 
 public partial class Player : CharacterBody2D
 {
+	[Export]
 	public const float Speed = 300.0f;
-	public Direction Direction { get; private set; } = Direction.Up;
+	[Export]
+	private Direction Direction { get; set; } = Direction.Up;
+	[Export]
+	private PackedScene AttackNode { get; set; }
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -52,7 +56,14 @@ public partial class Player : CharacterBody2D
 	{
 		if (@event.IsActionPressed("interact"))
 		{
-			GD.Print(Direction.ToString());
+			Attack();
 		}
+	}
+
+	private void Attack()
+	{
+		Attack attack = (Attack)AttackNode.Instantiate();
+		AddChild(attack);
+		attack.Initialize(DirectionExtensions.GetVectorFromDirection(Direction), DirectionExtensions.GetRotationFromDirection(Direction));
 	}
 }
