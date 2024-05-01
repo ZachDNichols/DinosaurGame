@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvx1y5qc7helx"]
+[gd_scene load_steps=3 format=3 uid="uid://bvx1y5qc7helx"]
 
 [ext_resource type="Texture2D" uid="uid://d2egawawhav5w" path="res://Assets/Sprites/Temp/Attack.png" id="1_cpbhq"]
-[ext_resource type="Script" path="res://Scripts/Attack.cs" id="2_3pchd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cds50"]
 size = Vector2(8, 17)
@@ -11,7 +10,6 @@ z_index = 6
 texture_filter = 1
 rotation = -0.0156889
 texture = ExtResource("1_cpbhq")
-script = ExtResource("2_3pchd")
 
 [node name="Area2D" type="Area2D" parent="."]
 

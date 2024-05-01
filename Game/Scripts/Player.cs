@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Godot;
 
 namespace RecordBound.Scripts;
@@ -11,9 +13,12 @@ public partial class Player : CharacterBody2D
 	[Export]
 	private PackedScene AttackNode { get; set; }
 
+	private bool _isAttacking = false;
+
 	public override void _PhysicsProcess(double delta)
 	{
 		MovePlayer();
+		LookAt(GetGlobalMousePosition());
 	}
 
 	private void MovePlayer()
@@ -33,23 +38,6 @@ public partial class Player : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
-		if (direction == Vector2.Up)
-		{
-			Direction = Direction.Up;
-		}
-		else if (direction == Vector2.Down)
-		{
-			Direction = Direction.Down;
-		}
-		else if (direction == Vector2.Right)
-		{
-			Direction = Direction.Right;
-		}
-		else if (direction == Vector2.Left)
-		{
-			Direction = Direction.Left;
-		}
-			
 	}
 	
 	public override void _Input(InputEvent @event)
@@ -60,10 +48,19 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-	private void Attack()
+	private async void Attack()
 	{
-		Attack attack = (Attack)AttackNode.Instantiate();
+		if (_isAttacking)
+		{
+			return;
+		}
+		_isAttacking = true;
+		Sprite2D attack = (Sprite2D)AttackNode.Instantiate();
 		AddChild(attack);
-		attack.Initialize(DirectionExtensions.GetVectorFromDirection(Direction), DirectionExtensions.GetRotationFromDirection(Direction));
+		attack.Position = new Vector2 (1, .1f) * 20;
+		await Task.Delay(TimeSpan.FromSeconds(1));
+		RemoveChild(attack);
+		attack.QueueFree();
+		_isAttacking = false;
 	}
 }
