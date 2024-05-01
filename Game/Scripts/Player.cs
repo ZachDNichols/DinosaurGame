@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using Godot;
 
 namespace RecordBound.Scripts;
@@ -13,12 +11,23 @@ public partial class Player : CharacterBody2D
 	[Export]
 	private PackedScene AttackNode { get; set; }
 
-	private bool _isAttacking = false;
+	private double _attackCooldown = 0.5;
+	private double _attackCooldownDuration = 0.5;
+	private bool _isAttacking;
 
 	public override void _PhysicsProcess(double delta)
 	{
 		MovePlayer();
 		LookAt(GetGlobalMousePosition());
+		if (_isAttacking)
+		{
+			_attackCooldown -= delta;
+			if (_attackCooldown <= 0)
+			{
+				_attackCooldown = _attackCooldownDuration;
+				_isAttacking = false;
+			}
+		}
 	}
 
 	private void MovePlayer()
@@ -48,19 +57,16 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-	private async void Attack()
+	private void Attack()
 	{
 		if (_isAttacking)
 		{
 			return;
 		}
+		
 		_isAttacking = true;
-		Sprite2D attack = (Sprite2D)AttackNode.Instantiate();
+		AttackNode attack = (AttackNode)AttackNode.Instantiate();
 		AddChild(attack);
-		attack.Position = new Vector2 (1, .1f) * 20;
-		await Task.Delay(TimeSpan.FromSeconds(1));
-		RemoveChild(attack);
-		attack.QueueFree();
-		_isAttacking = false;
+		attack.Initialize();
 	}
 }
