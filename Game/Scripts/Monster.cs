@@ -6,7 +6,7 @@ namespace RecordBound.Scripts;
 public partial class Monster : CharacterBody2D
 {
 	[Export]
-	private const float Speed = 600.0f;
+	private const float Speed = 200.0f;
 	[Export]
 	private NavigationAgent2D _navigationAgent;
 	[Export]

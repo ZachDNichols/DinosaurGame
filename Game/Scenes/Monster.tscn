@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1mcy5dte1vg8"]
 
 [ext_resource type="Script" path="res://Scripts/Monster.cs" id="1_edsef"]
-[ext_resource type="Texture2D" uid="uid://dtr64nwy5voib" path="res://Assets/Sprites/Temp/goober.png" id="1_nad8k"]
+[ext_resource type="Texture2D" uid="uid://ducaho8erfaig" path="res://Assets/Sprites/Temp/goober2.png" id="2_y1yna"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_noiri"]
 radius = 6.0
@@ -15,7 +15,8 @@ _timer = NodePath("Timer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("1_nad8k")
+scale = Vector2(0.0180415, 0.0180415)
+texture = ExtResource("2_y1yna")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_noiri")
@@ -23,8 +24,9 @@ shape = SubResource("CircleShape2D_noiri")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
 radius = 20.0
-debug_enabled = true
+debug_use_custom = true
 debug_path_custom_color = Color(0.945098, 0, 0.266667, 1)
+debug_path_custom_point_size = 1.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1

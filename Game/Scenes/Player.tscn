@@ -15,12 +15,10 @@ AttackNode = ExtResource("2_04wec")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+scale = Vector2(0.0199999, 0.0199999)
 texture = ExtResource("1_cas5l")
-hframes = 8
-vframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, 3.5)
 shape = SubResource("CircleShape2D_em2g3")
 
 [node name="Camera2D" type="Camera2D" parent="."]

@@ -10,8 +10,8 @@
 position = Vector2(4, -22)
 
 [node name="Node2D2" parent="." instance=ExtResource("2_rwmt3")]
-position = Vector2(-293, -22)
-rotation = 3.14813
+position = Vector2(-294, -22)
+rotation = 3.14159
 
 [node name="Monster" parent="." instance=ExtResource("3_emkhy")]
 z_index = 1
