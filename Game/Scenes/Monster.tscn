@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1mcy5dte1vg8"]
+
+[ext_resource type="Script" path="res://Scripts/Monster.cs" id="1_edsef"]
+[ext_resource type="Texture2D" uid="uid://dtr64nwy5voib" path="res://Assets/Sprites/Temp/goober.png" id="1_nad8k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_noiri"]
+radius = 6.0
+
+[node name="Monster" type="CharacterBody2D" node_paths=PackedStringArray("_navigationAgent", "_timer")]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_edsef")
+_navigationAgent = NodePath("NavigationAgent2D")
+_timer = NodePath("Timer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_nad8k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_noiri")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+radius = 20.0
+debug_enabled = true
+debug_path_custom_color = Color(0.945098, 0, 0.266667, 1)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true

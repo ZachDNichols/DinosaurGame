@@ -7,13 +7,14 @@ public partial class Player : CharacterBody2D
 	[Export]
 	public const float Speed = 300.0f;
 	[Export]
-	private Direction Direction { get; set; } = Direction.Up;
-	[Export]
 	private PackedScene AttackNode { get; set; }
+	[Export]
+	private Vector2 CameraZoom { get; set; } = new Vector2(3, 3);
 
 	private double _attackCooldown = 0.5;
 	private double _attackCooldownDuration = 0.5;
 	private bool _isAttacking;
+	public static Player Instance { get; private set; }
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -28,6 +29,12 @@ public partial class Player : CharacterBody2D
 				_isAttacking = false;
 			}
 		}
+	}
+	
+	public override void _Ready()
+	{
+		Instance = this;
+		// rest of your _Ready code
 	}
 
 	private void MovePlayer()

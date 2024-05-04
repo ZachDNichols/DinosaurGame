@@ -4,10 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://bb1prl7xpshoq" path="res://Assets/Sprites/Temp/Tuxedo.png" id="1_cas5l"]
 [ext_resource type="PackedScene" uid="uid://bvx1y5qc7helx" path="res://Scenes/Attack.tscn" id="2_04wec"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ro20o"]
-size = Vector2(11, 15)
+[sub_resource type="CircleShape2D" id="CircleShape2D_em2g3"]
+radius = 7.51665
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_2h3yo")
 AttackNode = ExtResource("2_04wec")
 
@@ -19,4 +21,7 @@ vframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, 3.5)
-shape = SubResource("RectangleShape2D_ro20o")
+shape = SubResource("CircleShape2D_em2g3")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)

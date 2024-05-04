@@ -1,15 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://d35iu2juhe7bf"]
+[gd_scene load_steps=4 format=3 uid="uid://d35iu2juhe7bf"]
 
-[ext_resource type="Texture2D" uid="uid://diafq41b85o2i" path="res://Assets/Sprites/Temp/grass.png" id="1_vf2hp"]
 [ext_resource type="PackedScene" uid="uid://btegbv6g6si0p" path="res://Scenes/Player.tscn" id="2_j5nrb"]
+[ext_resource type="PackedScene" uid="uid://qgmwwc2wpgtf" path="res://Testmap.tscn" id="2_rwmt3"]
+[ext_resource type="PackedScene" uid="uid://d1mcy5dte1vg8" path="res://Scenes/Monster.tscn" id="3_emkhy"]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-texture = ExtResource("1_vf2hp")
+[node name="Node2D" parent="." instance=ExtResource("2_rwmt3")]
+position = Vector2(4, -22)
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("2_j5nrb")]
-position = Vector2(16, -15)
+[node name="Node2D2" parent="." instance=ExtResource("2_rwmt3")]
+position = Vector2(-293, -22)
+rotation = 3.14813
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+[node name="Monster" parent="." instance=ExtResource("3_emkhy")]
+z_index = 1
+position = Vector2(-47, -92)
+
+[node name="Player" parent="." instance=ExtResource("2_j5nrb")]
+z_index = 1
+position = Vector2(-62, 50)
+CameraZoom = Vector2(2, 2)
+
+[node name="Monster2" parent="." instance=ExtResource("3_emkhy")]
+position = Vector2(130, -46)
