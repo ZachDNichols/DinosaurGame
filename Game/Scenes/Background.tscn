@@ -4,23 +4,15 @@
 [ext_resource type="PackedScene" uid="uid://qgmwwc2wpgtf" path="res://Testmap.tscn" id="2_rwmt3"]
 [ext_resource type="PackedScene" uid="uid://d1mcy5dte1vg8" path="res://Scenes/Monster.tscn" id="3_emkhy"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D2" type="Node2D"]
 
 [node name="Node2D" parent="." instance=ExtResource("2_rwmt3")]
 position = Vector2(4, -22)
 
-[node name="Node2D2" parent="." instance=ExtResource("2_rwmt3")]
-position = Vector2(-294, -22)
-rotation = 3.14159
-
-[node name="Monster" parent="." instance=ExtResource("3_emkhy")]
-z_index = 1
-position = Vector2(-47, -92)
-
 [node name="Player" parent="." instance=ExtResource("2_j5nrb")]
 z_index = 1
-position = Vector2(-62, 50)
+position = Vector2(-28, 56)
 CameraZoom = Vector2(2, 2)
 
 [node name="Monster2" parent="." instance=ExtResource("3_emkhy")]
-position = Vector2(130, -46)
+position = Vector2(32, -58)
