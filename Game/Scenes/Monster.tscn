@@ -25,7 +25,7 @@ shape = SubResource("CircleShape2D_noiri")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
 radius = 20.0
-debug_use_custom = true
+debug_enabled = true
 debug_path_custom_color = Color(0.945098, 0, 0.266667, 1)
 debug_path_custom_point_size = 1.0
 
