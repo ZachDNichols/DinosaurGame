@@ -16,3 +16,9 @@ CameraZoom = Vector2(2, 2)
 
 [node name="Monster2" parent="." instance=ExtResource("3_emkhy")]
 position = Vector2(32, -58)
+
+[node name="Monster" parent="." instance=ExtResource("3_emkhy")]
+position = Vector2(-117, 105)
+
+[node name="Monster3" parent="." instance=ExtResource("3_emkhy")]
+position = Vector2(-305, -127)

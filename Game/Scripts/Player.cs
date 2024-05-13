@@ -34,7 +34,6 @@ public partial class Player : CharacterBody2D
 	public override void _Ready()
 	{
 		Instance = this;
-		// rest of your _Ready code
 	}
 
 	private void MovePlayer()

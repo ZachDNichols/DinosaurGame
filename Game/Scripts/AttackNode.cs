@@ -11,7 +11,8 @@ public partial class AttackNode : Sprite2D
 	[Export]
 	private int _distanceScale = 20;
 	private static readonly Vector2 SpawnPosition = new Vector2(1, .1f);
-	
+	private const string MonsterTag = "monster";
+	[Export] private Area2D _area2D;
 	
 	public override void _PhysicsProcess(double delta)
 	{
@@ -21,23 +22,34 @@ public partial class AttackNode : Sprite2D
 			QueueFree();
 		}
 	}
-	
-	public void SetSize(float multiplier)
+
+	private void SetSize(float multiplier)
 	{
 		_size *= multiplier;
 	}
-	
-	public void SetDuration(double multiplier)
+
+	private void SetDuration(double multiplier)
 	{
 		_duration *= multiplier;
 	}
 
 	public void Initialize()
 	{
+		_area2D.Monitoring = true;
+		_area2D.BodyEntered += BodyEntered;
 		Position = SpawnPosition * _distanceScale;
-		Scale = _size;
+	}	
+	
+	private void BodyEntered(Node2D body)
+	{
+		if (body.IsInGroup(MonsterTag))
+		{
+			Monster monster = body as Monster;
+			monster?.TakeDamage();
+		}
+		
+		_duration = .2f;
 	}
-	
-	
-	
 }
+
+
