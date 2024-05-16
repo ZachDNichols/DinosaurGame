@@ -1,8 +1,4 @@
-using System;
 using Godot;
-using System.Linq;
-using System.Numerics;
-using System.Threading.Tasks;
 using Vector2 = Godot.Vector2;
 
 namespace RecordBound.Scripts;
@@ -15,19 +11,17 @@ public partial class Monster : CharacterBody2D
 	private NavigationAgent2D _navigationAgent;
 	[Export]
 	private Timer _timer;
-	private static Player _player = Player.Instance;
+	private static readonly Player Player = Player.Instance;
 	private Vector2 _randomVector;
-	private bool _isCloseToPlayer = false;
+	private bool _isCloseToPlayer;
 	[Export]
 	private float _distanceToPlayer = 50f;
 	[Export]
 	private float _vitality = 25f;
-	private const string PlayerAttackTag = "player_attack";
 	[Export]
 	private float _knockbackForce = 300f;
-
-	private float _knockbackDuration;
-	private const float KnockbackCooldown = 1f;
+	[Export]
+	private const float KnockbackCooldown = 0.03f;
 	private Vector2 _knockback;
 	
 	
@@ -47,15 +41,15 @@ public partial class Monster : CharacterBody2D
 		Velocity = dir * Speed + _knockback;
 		
 		MoveAndSlide();
-		_knockback = _knockback.Lerp(Vector2.Zero, 0.03f);
+		_knockback = _knockback.Lerp(Vector2.Zero, KnockbackCooldown);
 		GD.Print(_knockback);
 		
-		if (Position.DistanceTo(_player.GlobalPosition) < _distanceToPlayer + 20 && !_isCloseToPlayer)
+		if (Position.DistanceTo(Player.GlobalPosition) < _distanceToPlayer + 20 && !_isCloseToPlayer)
 		{
 			_isCloseToPlayer = true;
 			MakePath();	
 		}
-		else if (Position.DistanceTo(_player.GlobalPosition) > _distanceToPlayer + 20 && _isCloseToPlayer)
+		else if (Position.DistanceTo(Player.GlobalPosition) > _distanceToPlayer + 20 && _isCloseToPlayer)
 		{
 			_isCloseToPlayer = false;
 			MakePath();
@@ -64,15 +58,15 @@ public partial class Monster : CharacterBody2D
 
 	private void MakePath()
 	{
-		if (_player != null)
+		if (Player != null)
 		{
 			if (!_isCloseToPlayer)
 			{
-				_navigationAgent.TargetPosition = _player.GlobalPosition + _randomVector;
+				_navigationAgent.TargetPosition = Player.GlobalPosition + _randomVector;
 			}
 			else
 			{
-				_navigationAgent.TargetPosition = _player.GlobalPosition;
+				_navigationAgent.TargetPosition = Player.GlobalPosition;
 			}
 		}
 	}
@@ -92,7 +86,7 @@ public partial class Monster : CharacterBody2D
 			return;
 		}
 		
-		Vector2 direction = _player.GlobalPosition.DirectionTo(GlobalPosition);
+		Vector2 direction = Player.GlobalPosition.DirectionTo(GlobalPosition);
 		_knockback = direction * _knockbackForce;
 
 	}
