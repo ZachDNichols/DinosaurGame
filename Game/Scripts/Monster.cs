@@ -1,8 +1,6 @@
 using Godot;
 using Vector2 = Godot.Vector2;
 
-namespace RecordBound.Scripts;
-
 public partial class Monster : CharacterBody2D
 {
 	[Export]
@@ -18,11 +16,8 @@ public partial class Monster : CharacterBody2D
 	private float _distanceToPlayer = 50f;
 	[Export]
 	private float _vitality = 25f;
-	[Export]
-	private float _knockbackForce = 300f;
-	[Export]
-	private const float KnockbackCooldown = 0.03f;
-	private Vector2 _knockback;
+
+	private Knockback _knockback = new();
 	
 	
 	public override void _Ready()
@@ -33,16 +28,17 @@ public partial class Monster : CharacterBody2D
 		_timer.Timeout += OnTimerTimeout;
 		
 		_randomVector = new Vector2((float)GD.RandRange(-_distanceToPlayer, _distanceToPlayer), (float)GD.RandRange(-_distanceToPlayer, _distanceToPlayer));
+
+		_navigationAgent.PathPostprocessing = NavigationPathQueryParameters2D.PathPostProcessing.Corridorfunnel;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 dir = ToLocal(_navigationAgent.GetNextPathPosition()).Normalized();
-		Velocity = dir * Speed + _knockback;
+		Velocity = dir * Speed + _knockback.Direction;
 		
 		MoveAndSlide();
-		_knockback = _knockback.Lerp(Vector2.Zero, KnockbackCooldown);
-		GD.Print(_knockback);
+		_knockback.DecreaseKnockBack();
 		
 		if (Position.DistanceTo(Player.GlobalPosition) < _distanceToPlayer + 20 && !_isCloseToPlayer)
 		{
@@ -58,11 +54,16 @@ public partial class Monster : CharacterBody2D
 
 	private void MakePath()
 	{
-		if (Player != null)
+		if (Player != null && Player.Velocity != Vector2.Zero)
 		{
 			if (!_isCloseToPlayer)
 			{
 				_navigationAgent.TargetPosition = Player.GlobalPosition + _randomVector;
+
+				if (_navigationAgent.GetNextPathPosition() > Player.GlobalPosition)
+				{
+					_navigationAgent.TargetPosition = Player.GlobalPosition;
+				}
 			}
 			else
 			{
@@ -87,7 +88,7 @@ public partial class Monster : CharacterBody2D
 		}
 		
 		Vector2 direction = Player.GlobalPosition.DirectionTo(GlobalPosition);
-		_knockback = direction * _knockbackForce;
+		_knockback.SetDirection(direction);
 
 	}
 }

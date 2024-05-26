@@ -1,7 +1,5 @@
 using Godot;
 
-namespace RecordBound.Scripts;
-
 public partial class AttackNode : Sprite2D
 {
 	[Export]
